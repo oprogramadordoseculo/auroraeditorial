@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Editorial — Livros e Serviços Editoriais</title>
+<meta name="description" content="Aurora Editorial: livros de poesia e literatura, e serviços editoriais completos para autores independentes brasileiros.">
+<meta name="theme-color" content="#070D1F">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icone-192.png">
+<link rel="apple-touch-icon" href="icone-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Karla:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================
+   AURORA EDITORIAL — paleta e base
+   ============================================ */
+:root{
+  --noite:#070D1F;        /* fundo: céu noturno profundo */
+  --painel:#0F1A38;       /* cartões e painéis */
+  --borda:#1E2C55;        /* bordas sutis */
+  --aurora-verde:#4BE8AC; /* luz principal da aurora */
+  --aurora-violeta:#9A6BFF;
+  --aurora-rosa:#E86BC8;
+  --texto:#EAF2F5;
+  --texto-suave:#9FB0C8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--noite);
+  color:var(--texto);
+  font-family:'Karla',sans-serif;
+  font-weight:300;
+  line-height:1.7;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.15}
+a{color:var(--aurora-verde);text-decoration:none}
+img{max-width:100%;display:block}
+:focus-visible{outline:2px solid var(--aurora-verde);outline-offset:3px;border-radius:4px}
+
+/* ============================================
+   CABEÇALHO
+   ============================================ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 22px;
+  background:rgba(7,13,31,.75);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--borda);
+}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:700;color:var(--texto);letter-spacing:.04em}
+.logo em{font-style:normal;color:var(--aurora-verde)}
+nav{display:flex;gap:20px}
+nav a{color:var(--texto-suave);font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+nav a:hover{color:var(--aurora-verde)}
+@media(max-width:640px){nav{display:none}}
+
+/* ============================================
+   HERO — a aurora boreal (assinatura visual)
+   ============================================ */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:120px 24px 80px;overflow:hidden;
+}
+.ceu{position:absolute;inset:0;pointer-events:none}
+/* estrelas */
+.ceu::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 22%, #fff 55%, transparent 60%),
+    radial-gradient(1px 1px at 34% 14%, #cfe6ff 55%, transparent 60%),
+    radial-gradient(1.6px 1.6px at 58% 30%, #fff 55%, transparent 60%),
+    radial-gradient(1px 1px at 72% 12%, #cfe6ff 55%, transparent 60%),
+    radial-gradient(1.3px 1.3px at 86% 26%, #fff 55%, transparent 60%),
+    radial-gradient(1px 1px at 22% 46%, #cfe6ff 55%, transparent 60%),
+    radial-gradient(1.2px 1.2px at 46% 52%, #fff 55%, transparent 60%),
+    radial-gradient(1px 1px at 66% 44%, #cfe6ff 55%, transparent 60%),
+    radial-gradient(1.4px 1.4px at 92% 56%, #fff 55%, transparent 60%),
+    radial-gradient(1px 1px at 8% 64%, #cfe6ff 55%, transparent 60%);
+  opacity:.75;
+  animation:cintilar 6s ease-in-out infinite alternate;
+}
+@keyframes cintilar{from{opacity:.45}to{opacity:.85}}
+/* cortinas de luz */
+.cortina{
+  position:absolute;width:65vw;height:70vh;top:-12%;
+  filter:blur(70px);opacity:.5;border-radius:50%;
+  mix-blend-mode:screen;
+}
+.cortina.verde{
+  left:-8%;
+  background:linear-gradient(160deg, var(--aurora-verde), transparent 65%);
+  animation:dancar1 16s ease-in-out infinite alternate;
+}
+.cortina.violeta{
+  left:30%;
+  background:linear-gradient(200deg, var(--aurora-violeta), transparent 65%);
+  animation:dancar2 20s ease-in-out infinite alternate;
+}
+.cortina.rosa{
+  right:-12%;width:50vw;
+  background:linear-gradient(180deg, var(--aurora-rosa), transparent 60%);
+  opacity:.3;
+  animation:dancar1 24s ease-in-out infinite alternate-reverse;
+}
+@keyframes dancar1{
+  from{transform:translateX(0) skewX(-6deg) scaleY(1)}
+  to{transform:translateX(6vw) skewX(6deg) scaleY(1.15)}
+}
+@keyframes dancar2{
+  from{transform:translateX(0) skewX(8deg) scaleY(1.1)}
+  to{transform:translateX(-7vw) skewX(-5deg) scaleY(.95)}
+}
+@media(prefers-reduced-motion:reduce){
+  .cortina,.ceu::before{animation:none}
+  *{scroll-behavior:auto}
+}
+.hero-conteudo{position:relative;max-width:720px}
+.hero .selo{
+  font-size:.78rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--aurora-verde);margin-bottom:22px;
+}
+.hero h1{font-size:clamp(2.8rem,8vw,5.2rem);font-weight:500}
+.hero h1 em{font-style:italic;color:var(--aurora-verde)}
+.hero p{
+  margin:26px auto 40px;max-width:480px;
+  color:var(--texto-suave);font-size:1.05rem;
+}
+.botoes{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:14px 30px;border-radius:100px;
+  font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;
+  transition:transform .3s, box-shadow .3s;
+}
+.btn-luz{
+  background:linear-gradient(120deg,var(--aurora-verde),#37c9e0);
+  color:#04121C;
+}
+.btn-luz:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,232,172,.35)}
+.btn-noite{border:1px solid var(--borda);color:var(--texto)}
+.btn-noite:hover{border-color:var(--aurora-verde);color:var(--aurora-verde)}
+
+/* ============================================
+   SEÇÕES
+   ============================================ */
+section{padding:90px 24px;max-width:1080px;margin:0 auto}
+.titulo-secao{text-align:center;margin-bottom:56px}
+.titulo-secao .eyebrow{
+  font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;
+  color:var(--aurora-violeta);
+}
+.titulo-secao h2{font-size:clamp(2rem,5vw,3rem);margin-top:12px}
+
+/* --- Livros --- */
+#livros .grade{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:28px;
+}
+.livro{
+  background:var(--painel);border:1px solid var(--borda);border-radius:18px;
+  overflow:hidden;transition:transform .35s, border-color .35s;
+}
+.livro:hover{transform:translateY(-6px);border-color:var(--aurora-verde)}
+.capa{
+  aspect-ratio:2/3;
+  display:flex;align-items:flex-end;padding:20px;
+  font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;line-height:1.2;
+  background:linear-gradient(155deg,#12224E, #071029 55%);
+  position:relative;
+}
+.capa::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(200deg, rgba(75,232,172,.28), transparent 55%);
+}
+.capa span{position:relative;z-index:1}
+.livro .info{padding:18px 20px 22px}
+.livro .tipo{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--aurora-verde)}
+.livro p{font-size:.9rem;color:var(--texto-suave);margin:8px 0 14px}
+.livro a{font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;font-weight:500}
+
+/* --- Serviços --- */
+#servicos{max-width:100%;background:linear-gradient(180deg,transparent, rgba(15,26,56,.6) 20%, rgba(15,26,56,.6) 80%, transparent)}
+#servicos .interno{max-width:1080px;margin:0 auto}
+.servicos-grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+.servico{
+  padding:30px 28px;border:1px solid var(--borda);border-radius:18px;
+  background:rgba(7,13,31,.5);
+}
+.servico .icone{
+  width:46px;height:46px;border-radius:12px;margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;
+  background:linear-gradient(135deg, rgba(75,232,172,.18), rgba(154,107,255,.18));
+  border:1px solid var(--borda);
+}
+.servico h3{font-size:1.5rem;margin-bottom:10px}
+.servico p{font-size:.92rem;color:var(--texto-suave)}
+
+/* --- Sobre --- */
+#sobre{display:grid;grid-template-columns:1fr 1.4fr;gap:56px;align-items:center}
+@media(max-width:760px){#sobre{grid-template-columns:1fr}}
+.marca-agua{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:clamp(1.6rem,3.5vw,2.2rem);line-height:1.4;
+  color:var(--texto);
+  border-left:2px solid var(--aurora-verde);padding-left:26px;
+}
+#sobre .texto p{color:var(--texto-suave);margin-bottom:16px}
+
+/* --- Contato --- */
+#contato{text-align:center}
+#contato p{color:var(--texto-suave);max-width:520px;margin:0 auto 36px}
+.contatos{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+
+/* --- Rodapé --- */
+footer{
+  border-top:1px solid var(--borda);
+  padding:34px 24px;text-align:center;
+  font-size:.82rem;color:var(--texto-suave);
+}
+footer .linha-aurora{
+  height:2px;max-width:220px;margin:0 auto 26px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--aurora-verde),var(--aurora-violeta),transparent);
+}
+
+/* aparecer suave ao rolar */
+.revelar{opacity:0;transform:translateY(24px);transition:opacity .8s, transform .8s}
+.revelar.visivel{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.revelar{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><em>✦</em> Aurora Editorial</div>
+  <nav>
+    <a href="#livros">Livros</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#sobre">Sobre</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="ceu">
+    <div class="cortina verde"></div>
+    <div class="cortina violeta"></div>
+    <div class="cortina rosa"></div>
+  </div>
+  <div class="hero-conteudo">
+    <div class="selo">Editora independente · Brasil</div>
+    <h1>Onde a palavra<br><em>ilumina a noite</em></h1>
+    <p>Livros de poesia e literatura, e serviços editoriais completos para autores independentes que querem ver sua obra impressa com qualidade profissional.</p>
+    <div class="botoes">
+      <a class="btn btn-luz" href="#livros">Conhecer os livros</a>
+      <a class="btn btn-noite" href="#servicos">Serviços editoriais</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ LIVROS ============ -->
+<section id="livros">
+  <div class="titulo-secao revelar">
+    <div class="eyebrow">Catálogo</div>
+    <h2>Nossos livros</h2>
+  </div>
+  <div class="grade" id="grade-livros"><!-- preenchido pelo JavaScript --></div>
+</section>
+
+<!-- ============ SERVIÇOS ============ -->
+<section id="servicos">
+  <div class="interno">
+    <div class="titulo-secao revelar">
+      <div class="eyebrow">Para autores independentes</div>
+      <h2>Serviços editoriais</h2>
+    </div>
+    <div class="servicos-grade">
+      <div class="servico revelar">
+        <div class="icone">📐</div>
+        <h3>Diagramação profissional</h3>
+        <p>Miolo diagramado no formato 14×21 cm com margens, tipografia e espaçamento pensados para leitura confortável.</p>
+      </div>
+      <div class="servico revelar">
+        <div class="icone">🖨️</div>
+        <h3>PDF pronto para gráfica</h3>
+        <p>Arquivo final com sangria de 3 mm, fontes embutidas e cores em CMYK — no padrão exigido pelas gráficas brasileiras.</p>
+      </div>
+      <div class="servico revelar">
+        <div class="icone">✍️</div>
+        <h3>Revisão de texto</h3>
+        <p>Revisão ortográfica e gramatical cuidadosa, respeitando o estilo e a voz do autor.</p>
+      </div>
+      <div class="servico revelar">
+        <div class="icone">🎨</div>
+        <h3>Projeto de capa</h3>
+        <p>Capa com identidade visual alinhada à obra, incluindo lombada e quarta capa prontas para impressão.</p>
+      </div>
+      <div class="servico revelar">
+        <div class="icone">📚</div>
+        <h3>Consultoria de publicação</h3>
+        <p>Orientação sobre ISBN, ficha catalográfica, depósito legal e os caminhos da publicação independente no Brasil.</p>
+      </div>
+      <div class="servico revelar">
+        <div class="icone">🌐</div>
+        <h3>E-book e distribuição digital</h3>
+        <p>Conversão da obra para formatos digitais e apoio para chegar às principais plataformas de venda.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section id="sobre">
+  <div class="marca-agua revelar">
+    "Assim como a aurora rasga o escuro do céu, cada livro é uma luz que atravessa a noite."
+  </div>
+  <div class="texto revelar">
+    <p>A <strong>Aurora Editorial</strong> nasceu do sonho de um poeta: tornar a publicação de qualidade acessível a autores independentes brasileiros.</p>
+    <p>Acreditamos que toda voz merece um livro bem feito — do primeiro rascunho ao exemplar impresso. Por isso, unimos sensibilidade literária e domínio técnico do processo editorial, cuidando de cada detalhe como se a obra fosse nossa.</p>
+    <p>Sediada no Espírito Santo, a editora publica poesia e literatura e acompanha autores em todas as etapas da jornada de publicação.</p>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section id="contato">
+  <div class="titulo-secao revelar">
+    <div class="eyebrow">Vamos conversar</div>
+    <h2>Publique com a Aurora</h2>
+  </div>
+  <p class="revelar">Tem um livro na gaveta ou um projeto em andamento? Escreva para a gente e receba uma proposta personalizada.</p>
+  <div class="contatos revelar">
+    <!-- EDITE AQUI: troque o número e o e-mail pelos seus -->
+    <a class="btn btn-luz" href="https://wa.me/5527900000000?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20a%20Aurora%20Editorial." target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn btn-noite" href="mailto:contato@auroraeditorial.com.br">E-mail</a>
+  </div>
+</section>
+
+<footer>
+  <div class="linha-aurora"></div>
+  <p>✦ Aurora Editorial — © <span id="ano"></span>. Feita com poesia no Espírito Santo, Brasil.</p>
+</footer>
+
+<script>
+/* ============================================
+   CATÁLOGO DE LIVROS
+   Para adicionar um livro, basta acrescentar
+   um item novo nesta lista. Se tiver a imagem
+   da capa, coloque o arquivo na mesma pasta e
+   preencha o campo "capa" com o nome dele
+   (ex.: capa:"noite-e-luar.jpg").
+   ============================================ */
+const livros = [
+  {
+    titulo: "A Noite e o Luar — Volume 1",
+    tipo: "Poesia",
+    descricao: "Coletânea memorialística em versos, guiada por um narrador que revisita a própria noite em busca do luar.",
+    link: "#contato",
+    textoLink: "Quero este livro",
+    capa: "" // ex.: "noite-e-luar.jpg"
+  },
+  {
+    titulo: "Em breve",
+    tipo: "Próximo lançamento",
+    descricao: "Um novo título da Aurora Editorial está a caminho. Acompanhe nossas novidades.",
+    link: "#contato",
+    textoLink: "Avise-me",
+    capa: ""
+  }
+];
+
+const grade = document.getElementById("grade-livros");
+livros.forEach(l => {
+  const card = document.createElement("article");
+  card.className = "livro revelar";
+  const capaInterna = l.capa
+    ? `<img src="${l.capa}" alt="Capa do livro ${l.titulo}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">`
+    : `<span>${l.titulo}</span>`;
+  card.innerHTML = `
+    <div class="capa">${capaInterna}</div>
+    <div class="info">
+      <div class="tipo">${l.tipo}</div>
+      <h3 style="font-size:1.25rem">${l.titulo}</h3>
+      <p>${l.descricao}</p>
+      <a href="${l.link}">${l.textoLink} →</a>
+    </div>`;
+  grade.appendChild(card);
+});
+
+/* Ano automático no rodapé */
+document.getElementById("ano").textContent = new Date().getFullYear();
+
+/* Revelar seções ao rolar */
+const observador = new IntersectionObserver(entradas => {
+  entradas.forEach(e => { if (e.isIntersecting) e.target.classList.add("visivel"); });
+}, { threshold: 0.15 });
+document.querySelectorAll(".revelar").forEach(el => observador.observe(el));
+
+/* Registrar o service worker (PWA) */
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+</body>
+</html>
