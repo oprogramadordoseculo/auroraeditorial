@@ -1,42 +1,28 @@
-/* Service Worker — Aurora Editorial
-   Deixa o site funcionar offline e instalável como app.
-   Quando você atualizar o site, mude o número da versão
-   abaixo (v1 -> v2) para forçar a atualização do cache. */
-
-const CACHE = "aurora-editorial-v1";
+/* Service Worker — Aurora Editorial v2
+   Para forçar atualização, mude v2 para v3, etc. */
+const CACHE = 'aurora-editorial-v2';
 const ARQUIVOS = [
-  "./",
-  "./index.html",
-  "./manifest.json",
-  "./icone-192.png",
-  "./icone-512.png"
+  './', './index.html', './manifest.json',
+  './logo-aurora.png', './icone-192.png', './icone-512.png',
+  './capa-01.jpg','./capa-02.jpg','./capa-03.jpg',
+  './capa-04.jpg','./capa-05.jpg','./capa-06.jpg',
+  './capa-07.jpg','./capa-08.jpg','./capa-09.jpg'
 ];
-
-self.addEventListener("install", (e) => {
-  e.waitUntil(caches.open(CACHE).then((c) => c.addAll(ARQUIVOS)));
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(ARQUIVOS)));
   self.skipWaiting();
 });
-
-self.addEventListener("activate", (e) => {
-  e.waitUntil(
-    caches.keys().then((chaves) =>
-      Promise.all(chaves.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
-    )
-  );
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(ks =>
+    Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))
+  ));
   self.clients.claim();
 });
-
-/* Estratégia: tenta a rede primeiro (para pegar atualizações),
-   e usa o cache se estiver offline. */
-self.addEventListener("fetch", (e) => {
-  if (e.request.method !== "GET") return;
+self.addEventListener('fetch', e => {
+  if(e.request.method !== 'GET') return;
   e.respondWith(
     fetch(e.request)
-      .then((resposta) => {
-        const copia = resposta.clone();
-        caches.open(CACHE).then((c) => c.put(e.request, copia)).catch(() => {});
-        return resposta;
-      })
-      .catch(() => caches.match(e.request).then((r) => r || caches.match("./index.html")))
+      .then(r => { caches.open(CACHE).then(c => c.put(e.request, r.clone())).catch(()=>{}); return r; })
+      .catch(() => caches.match(e.request).then(r => r || caches.match('./index.html')))
   );
 });
