@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurora Editorial — Livros e Serviços Editoriais</title>
+<meta name="description" content="Aurora Editorial: livros de poesia e literatura, e serviços editoriais para autores independentes brasileiros.">
+<meta name="theme-color" content="#070D1F">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icone-192.png">
+<link rel="apple-touch-icon" href="icone-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Karla:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noite:#070D1F; --painel:#0F1A38; --borda:#1E2C55;
+  --verde:#4BE8AC; --violeta:#9A6BFF; --rosa:#E86BC8;
+  --texto:#EAF2F5; --suave:#9FB0C8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--noite);color:var(--texto);font-family:'Karla',sans-serif;font-weight:300;line-height:1.7;overflow-x:hidden}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600;line-height:1.2}
+a{color:var(--verde);text-decoration:none}
+:focus-visible{outline:2px solid var(--verde);outline-offset:3px;border-radius:4px}
+
+/* === HEADER === */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;height:62px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+  background:rgba(7,13,31,.88);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--borda);
+}
+.logo-link{display:flex;align-items:center;height:50px}
+.logo-link img{height:100%;width:auto;max-width:170px;object-fit:contain}
+.nav-desk{display:flex;gap:22px}
+.nav-desk a{color:var(--suave);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;transition:color .3s}
+.nav-desk a:hover{color:var(--verde)}
+
+/* === HAMBURGER === */
+.hamb{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.hamb span{display:block;width:22px;height:2px;background:var(--texto);border-radius:2px;transition:transform .3s,opacity .3s}
+@media(max-width:640px){.hamb{display:flex}.nav-desk{display:none}}
+
+/* === MENU MOBILE === */
+.menu-mob{
+  position:fixed;inset:0;z-index:99;
+  background:rgba(7,13,31,.97);backdrop-filter:blur(18px);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:36px;
+}
+.menu-mob.aberto{display:flex}
+.menu-mob a{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:500;color:var(--texto);letter-spacing:.08em;transition:color .3s}
+.menu-mob a:hover{color:var(--verde)}
+.btn-fechar{position:absolute;top:22px;right:22px;background:none;border:none;color:var(--suave);font-size:1.8rem;cursor:pointer;line-height:1;padding:4px}
+
+/* === HERO === */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding:100px 24px 80px;overflow:hidden;
+}
+.ceu{position:absolute;inset:0;pointer-events:none}
+.ceu::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(1.4px 1.4px at 12% 22%,#fff 55%,transparent 60%),
+    radial-gradient(1px 1px at 34% 14%,#cfe6ff 55%,transparent 60%),
+    radial-gradient(1.6px 1.6px at 58% 30%,#fff 55%,transparent 60%),
+    radial-gradient(1px 1px at 72% 12%,#cfe6ff 55%,transparent 60%),
+    radial-gradient(1.3px 1.3px at 86% 26%,#fff 55%,transparent 60%),
+    radial-gradient(1px 1px at 22% 46%,#cfe6ff 55%,transparent 60%),
+    radial-gradient(1.2px 1.2px at 46% 52%,#fff 55%,transparent 60%),
+    radial-gradient(1px 1px at 66% 44%,#cfe6ff 55%,transparent 60%),
+    radial-gradient(1.4px 1.4px at 92% 56%,#fff 55%,transparent 60%),
+    radial-gradient(1px 1px at 8% 64%,#cfe6ff 55%,transparent 60%);
+  opacity:.75;animation:cintilar 6s ease-in-out infinite alternate;
+}
+@keyframes cintilar{from{opacity:.45}to{opacity:.85}}
+.cortina{position:absolute;width:65vw;height:70vh;top:-12%;filter:blur(70px);opacity:.5;border-radius:50%;mix-blend-mode:screen}
+.cortina.v{left:-8%;background:linear-gradient(160deg,var(--verde),transparent 65%);animation:d1 16s ease-in-out infinite alternate}
+.cortina.vt{left:30%;background:linear-gradient(200deg,var(--violeta),transparent 65%);animation:d2 20s ease-in-out infinite alternate}
+.cortina.r{right:-12%;width:50vw;background:linear-gradient(180deg,var(--rosa),transparent 60%);opacity:.3;animation:d1 24s ease-in-out infinite alternate-reverse}
+@keyframes d1{from{transform:translateX(0) skewX(-6deg) scaleY(1)}to{transform:translateX(6vw) skewX(6deg) scaleY(1.15)}}
+@keyframes d2{from{transform:translateX(0) skewX(8deg) scaleY(1.1)}to{transform:translateX(-7vw) skewX(-5deg) scaleY(.95)}}
+@media(prefers-reduced-motion:reduce){.cortina,.ceu::before{animation:none}}
+.hero-c{position:relative;max-width:720px}
+.selo{font-size:.78rem;letter-spacing:.35em;text-transform:uppercase;color:var(--verde);margin-bottom:20px}
+.hero h1{font-size:clamp(2.8rem,8vw,5.2rem);font-weight:500}
+.hero h1 em{font-style:italic;color:var(--verde)}
+.hero p{margin:24px auto 38px;max-width:480px;color:var(--suave);font-size:1.05rem}
+.btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 28px;border-radius:100px;font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;font-weight:500;transition:transform .3s,box-shadow .3s;cursor:pointer;border:none;font-family:'Karla',sans-serif}
+.btn-luz{background:linear-gradient(120deg,var(--verde),#37c9e0);color:#04121C}
+.btn-luz:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,232,172,.35);color:#04121C}
+.btn-noite{border:1px solid var(--borda)!important;color:var(--texto);background:transparent}
+.btn-noite:hover{border-color:var(--verde)!important;color:var(--verde)}
+
+/* === SEÇÕES === */
+.secao{padding:80px 22px;max-width:1080px;margin:0 auto}
+.titulo-secao{text-align:center;margin-bottom:48px}
+.eyebrow{font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--violeta)}
+.titulo-secao h2{font-size:clamp(2rem,5vw,3rem);margin-top:10px}
+
+/* === GRADE DE LIVROS === */
+.grade-livros{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:18px}
+.livro-card{background:var(--painel);border:1px solid var(--borda);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .3s,border-color .3s,box-shadow .3s}
+.livro-card:hover,.livro-card:focus{transform:translateY(-5px);border-color:var(--verde);box-shadow:0 12px 32px rgba(75,232,172,.15);outline:none}
+.livro-card img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block}
+.card-info{padding:12px 14px 15px}
+.card-tipo{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
+.card-titulo{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600;margin-top:4px;line-height:1.2}
+.card-sub{font-size:.78rem;color:var(--suave);margin-top:3px;line-height:1.3}
+
+/* === GRADE DE SERVIÇOS === */
+.secao-servicos{padding:80px 22px;background:linear-gradient(180deg,transparent,rgba(15,26,56,.6) 20%,rgba(15,26,56,.6) 80%,transparent)}
+.grade-servicos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1080px;margin:0 auto}
+.servico-card{padding:26px 24px;border:1px solid var(--borda);border-radius:16px;background:rgba(7,13,31,.5);cursor:pointer;transition:transform .3s,border-color .3s}
+.servico-card:hover,.servico-card:focus{transform:translateY(-4px);border-color:var(--violeta);outline:none}
+.servico-icone{width:44px;height:44px;border-radius:10px;margin-bottom:15px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:linear-gradient(135deg,rgba(75,232,172,.18),rgba(154,107,255,.18));border:1px solid var(--borda)}
+.servico-card h3{font-size:1.35rem;margin-bottom:8px}
+.servico-card p{font-size:.88rem;color:var(--suave)}
+.ver-mais{font-size:.76rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violeta);margin-top:14px;display:inline-block}
+
+/* === SOBRE === */
+.sobre-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:center}
+@media(max-width:760px){.sobre-grid{grid-template-columns:1fr}}
+.sobre-logo{width:100%;max-width:280px;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5);margin:0 auto;display:block}
+.sobre-texto p{color:var(--suave);margin-bottom:16px;font-size:.97rem}
+
+/* === CONTATO === */
+.contato-c{text-align:center}
+.contato-c p{color:var(--suave);max-width:500px;margin:0 auto 32px}
+.contato-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* === FOOTER === */
+footer{border-top:1px solid var(--borda);padding:32px 24px;text-align:center;font-size:.82rem;color:var(--suave)}
+.linha-f{height:2px;max-width:200px;margin:0 auto 24px;border-radius:2px;background:linear-gradient(90deg,transparent,var(--verde),var(--violeta),transparent)}
+
+/* === PÁGINAS DE DETALHE === */
+.pagina-detalhe{display:none;padding-top:62px;min-height:100vh}
+.detalhe-inner{max-width:920px;margin:0 auto;padding:36px 22px 80px}
+.btn-voltar{display:inline-flex;align-items:center;gap:7px;color:var(--suave);font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:36px;transition:color .3s;background:none;border:none;cursor:pointer;padding:0;font-family:'Karla',sans-serif}
+.btn-voltar:hover{color:var(--verde)}
+
+/* detalhe livro */
+.detalhe-livro{display:grid;grid-template-columns:220px 1fr;gap:40px;align-items:start}
+@media(max-width:640px){.detalhe-livro{grid-template-columns:1fr}}
+.capa-grande{width:100%;max-width:260px;border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.6);margin:0 auto;display:block}
+.livro-tipo{font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--verde)}
+.detalhe-info h1{font-size:clamp(1.8rem,5vw,2.8rem);margin:8px 0 4px}
+.subtitulo-livro{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--suave);font-size:1.1rem;margin-bottom:6px}
+.vol-badge{display:inline-block;padding:3px 12px;border:1px solid var(--borda);border-radius:100px;font-size:.72rem;letter-spacing:.15em;color:var(--suave);margin-bottom:22px}
+.label-sec{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--violeta);margin-bottom:10px;margin-top:26px}
+.sinopse-txt{font-size:.97rem;color:var(--suave);line-height:1.85}
+.trecho-bloco{border-left:2px solid var(--verde);padding:16px 20px;margin-top:8px;background:rgba(75,232,172,.05);border-radius:0 8px 8px 0}
+.trecho-bloco p{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.15rem;color:var(--texto);line-height:1.8}
+.btn-acao{display:block;text-align:center;margin-top:34px;padding:16px 32px;border-radius:100px;font-weight:700;font-size:.88rem;letter-spacing:.08em;text-transform:uppercase;transition:transform .3s,box-shadow .3s;border:none;cursor:pointer;font-family:'Karla',sans-serif}
+.btn-comprar{background:linear-gradient(120deg,var(--verde),#37c9e0);color:#04121C}
+.btn-comprar:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(75,232,172,.4);color:#04121C}
+.btn-contratar{background:linear-gradient(120deg,var(--violeta),var(--rosa));color:#fff}
+.btn-contratar:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(154,107,255,.4);color:#fff}
+
+/* detalhe serviço */
+.detalhe-servico{max-width:700px;margin:0 auto}
+.servico-header-d{display:flex;align-items:center;gap:18px;margin-bottom:26px}
+.icone-grande{width:60px;height:60px;border-radius:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.6rem;background:linear-gradient(135deg,rgba(75,232,172,.2),rgba(154,107,255,.2));border:1px solid var(--borda)}
+.detalhe-servico h1{font-size:clamp(1.7rem,4vw,2.5rem)}
+.desc-completa{font-size:.97rem;color:var(--suave);line-height:1.85;margin-bottom:26px}
+.inclui-lista{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:30px}
+.inclui-lista li{display:flex;align-items:flex-start;gap:12px;font-size:.95rem;color:var(--suave)}
+.inclui-lista li::before{content:"✦";color:var(--verde);font-size:.8rem;margin-top:4px;flex-shrink:0}
+.preco-bloco{background:var(--painel);border:1px solid var(--borda);border-radius:14px;padding:22px 24px;margin-bottom:26px}
+.preco-label{font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;color:var(--suave);margin-bottom:6px}
+.preco-valor{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:var(--verde)}
+.preco-prazo{font-size:.82rem;color:var(--suave);margin-top:4px}
+
+/* reveal */
+.rev{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}
+.rev.vis{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rev{opacity:1;transform:none;transition:none}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a class="logo-link" href="#" onclick="voltarParaPrincipal();return false">
+    <img src="logo-aurora.png" alt="Aurora Editorial">
+  </a>
+  <nav class="nav-desk">
+    <a href="#livraria" onclick="navegar('#livraria');return false">Livraria</a>
+    <a href="#servicos" onclick="navegar('#servicos');return false">Serviços</a>
+    <a href="#sobre" onclick="navegar('#sobre');return false">Sobre</a>
+    <a href="#contato" onclick="navegar('#contato');return false">Contato</a>
+  </nav>
+  <button class="hamb" id="hamb" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- MENU MOBILE -->
+<div class="menu-mob" id="menuMob">
+  <button class="btn-fechar" id="btnFechar" aria-label="Fechar menu">✕</button>
+  <a href="#livraria"  onclick="fecharMenu();navegar('#livraria');return false">Livraria</a>
+  <a href="#servicos"  onclick="fecharMenu();navegar('#servicos');return false">Serviços</a>
+  <a href="#sobre"     onclick="fecharMenu();navegar('#sobre');return false">Sobre</a>
+  <a href="#contato"   onclick="fecharMenu();navegar('#contato');return false">Contato</a>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main id="mainContent">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="ceu">
+      <div class="cortina v"></div>
+      <div class="cortina vt"></div>
+      <div class="cortina r"></div>
+    </div>
+    <div class="hero-c">
+      <div class="selo">Editora independente · Brasil</div>
+      <h1>Onde a palavra<br><em>ilumina a noite</em></h1>
+      <p>Livros de poesia e literatura, e serviços editoriais completos para autores que querem ver sua obra impressa com qualidade profissional.</p>
+      <div class="btns">
+        <a class="btn btn-luz" href="#livraria" onclick="navegar('#livraria');return false">Conhecer os livros</a>
+        <a class="btn btn-noite" href="#servicos" onclick="navegar('#servicos');return false">Serviços editoriais</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVRARIA -->
+  <section class="secao" id="livraria">
+    <div class="titulo-secao rev">
+      <div class="eyebrow">Catálogo</div>
+      <h2>Livraria</h2>
+    </div>
+    <div class="grade-livros rev" id="gradeLivros"></div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <div class="secao-servicos" id="servicos">
+    <div class="titulo-secao rev">
+      <div class="eyebrow">Para autores independentes</div>
+      <h2>Serviços editoriais</h2>
+    </div>
+    <div class="grade-servicos rev" id="gradeServicos"></div>
+  </div>
+
+  <!-- SOBRE -->
+  <section class="secao" id="sobre">
+    <div class="sobre-grid">
+      <div class="rev">
+        <img src="logo-aurora.png" alt="Aurora Editorial" class="sobre-logo">
+      </div>
+      <div class="sobre-texto rev">
+        <p>A <strong>Aurora Editorial</strong> nasceu do sonho de um poeta: tornar a publicação de qualidade acessível a autores independentes brasileiros.</p>
+        <p>Acreditamos que toda voz merece um livro bem feito — do primeiro rascunho ao exemplar impresso. Por isso, unimos sensibilidade literária e domínio técnico do processo editorial, cuidando de cada detalhe como se a obra fosse nossa.</p>
+        <p>Sediada no Espírito Santo, a editora publica poesia e literatura e acompanha autores em todas as etapas da jornada de publicação.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="secao" id="contato">
+    <div class="contato-c">
+      <div class="titulo-secao rev">
+        <div class="eyebrow">Vamos conversar</div>
+        <h2>Publique com a Aurora</h2>
+      </div>
+      <p class="rev">Tem um livro na gaveta ou um projeto em andamento? Escreva para nós e receba uma proposta personalizada.</p>
+      <div class="contato-btns rev">
+        <!-- TROQUE 5527900000000 pelo seu número (55 + DDD + número) -->
+        <a class="btn btn-luz" href="https://wa.me/5527900000000?text=Olá!%20Quero%20saber%20mais%20sobre%20a%20Aurora%20Editorial." target="_blank" rel="noopener">WhatsApp</a>
+        <!-- TROQUE pelo seu e-mail -->
+        <a class="btn btn-noite" href="mailto:contato@auroraeditorial.com.br">E-mail</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="linha-f"></div>
+    <p>✦ Aurora Editorial — © <span id="ano"></span>. Feita com poesia no Espírito Santo, Brasil.</p>
+  </footer>
+</main>
+
+<!-- PÁGINAS DE DETALHE (geradas pelo JavaScript) -->
+<div id="paginasDetalhe"></div>
+
+<script>
+/* =====================================================
+   CATÁLOGO DE LIVROS
+   Para editar: troque "sinopse", "trecho" e "link"
+   O "link" deve ser o endereço da sua página na Hotmart
+   ===================================================== */
+const livros = [
+  {
+    id:'l01', capa:'capa-01.jpg',
+    titulo:'A Noite e o Luar', subtitulo:'Memórias de um pequeno poeta', volume:'Vol. 1',
+    tipo:'Poesia · Memórias',
+    sinopse:'Entre a infância e o verso, um menino aprende que a noite não é apenas ausência de luz — é também o palco onde o luar faz sua dança. Neste primeiro volume da série memorialística, o poeta revisita com olhos maduros as noites de sua infância: os medos, os sonhos, as vozes que o formaram. Uma obra que emociona pela honestidade e encanta pela beleza dos versos.',
+    trecho:'Era a noite que me ensinava a ver. Não os olhos — eles só enxergam quando há luz. Era o coração, que aprendia sozinho a encontrar o luar nas coisas simples: na fumaça do fogão de lenha, na voz da minha avó chamando meu nome, no silêncio que vinha depois do vento.',
+    link:'#contato' // TROQUE pelo link da Hotmart
+  },
+  {
+    id:'l02', capa:'capa-02.jpg',
+    titulo:'A Noite e o Luar', subtitulo:'Memórias de um poeta numa travessia solitária em busca da luz', volume:'Vol. 2',
+    tipo:'Poesia · Memórias',
+    sinopse:'A jornada continua — mas agora o poeta não é mais criança. Neste segundo volume, ele caminha por terrenos áridos em busca de uma luz que teima em se esconder. Poemas de solidão, resistência e fé compõem uma travessia que muitos reconhecerão como a sua própria.',
+    trecho:'Caminhei por desertos que ninguém escolheria. Não havia mapa — apenas a promessa vaga de que, em algum ponto além do horizonte, existia uma luz que me aguardava. Aprendi que a busca já é, ela mesma, uma forma de chegar.',
+    link:'#contato'
+  },
+  {
+    id:'l03', capa:'capa-03.jpg',
+    titulo:'Chuva de Lágrimas', subtitulo:'A história real de quem quase se afogou em si mesmo', volume:'',
+    tipo:'Literatura · Autobiografia',
+    sinopse:'Uma história real que poucos teriam coragem de contar. Neste livro, o autor mergulha nas profundezas do seu próprio sofrimento para mostrar como é possível emergir — ainda que por um fio. Uma obra sobre dor, sobrevivência e a delgada linha entre afundar e aprender a nadar em si mesmo.',
+    trecho:'Há um tipo de afogamento que não acontece na água. Acontece dentro de você, devagar, enquanto o mundo continua girando como se nada estivesse acontecendo. Eu quase me afundei em mim mesmo. Quase.',
+    link:'#contato'
+  },
+  {
+    id:'l04', capa:'capa-04.jpg',
+    titulo:'Poesia com Filosofia', subtitulo:'Palavras que marcam além de páginas, marcam vidas', volume:'',
+    tipo:'Poesia · Filosofia',
+    sinopse:'Quando a palavra encontra o pensamento, nasce algo que vai além da página. Esta coletânea une versos e reflexões filosóficas em uma dança entre razão e sensibilidade. Cada poema é um convite a parar, respirar e questionar — porque palavras que marcam páginas têm o poder de marcar vidas.',
+    trecho:'Todo filósofo carrega um poeta dentro de si que não sabe o que fazer com o que sente. Todo poeta carrega um filósofo que não sabe como nomear o que vê. Neste livro, os dois decidem parar de ignorar um ao outro.',
+    link:'#contato'
+  },
+  {
+    id:'l05', capa:'capa-05.jpg',
+    titulo:'Cartas do Meu Psicólogo', subtitulo:'', volume:'',
+    tipo:'Literatura · Saúde Mental',
+    sinopse:'E se o seu psicólogo pudesse te escrever uma carta? Uma carta sem jargões clínicos — apenas verdades ditas com cuidado. Nesta obra única, o autor recria o diálogo terapêutico em forma literária, oferecendo ao leitor reflexões que tocam onde a maioria dos livros de autoajuda não alcança.',
+    trecho:'Caro leitor, se você está lendo esta carta, é porque algo em você precisava ouvir o que ninguém ainda teve coragem de te dizer com clareza: você não está quebrado. Você está sendo consertado — e esse processo é necessariamente barulhento.',
+    link:'#contato'
+  },
+  {
+    id:'l06', capa:'capa-06.jpg',
+    titulo:'Deu Positivo! E Agora?', subtitulo:'Guia da gestação para mulheres', volume:'',
+    tipo:'Guia · Maternidade',
+    sinopse:'Um guia acolhedor para mulheres que desejam engravidar, que descobriram uma gravidez inesperada, ou que já viveram a dor de uma perda gestacional. Com linguagem direta e cheia de empatia, este livro oferece informação e amparo para cada etapa desta jornada única que é gestar uma vida.',
+    trecho:'O teste positivo muda tudo — e ao mesmo tempo nada. Você continua sendo você, mas agora carrega uma responsabilidade que transforma desde o primeiro segundo. Este guia existe para que você não precise caminhar por esse caminho sem uma mão.',
+    link:'#contato'
+  },
+  {
+    id:'l07', capa:'capa-07.jpg',
+    titulo:'O Guia da Gravidez para Homens', subtitulo:'O que as mulheres gostariam que eles soubessem', volume:'',
+    tipo:'Guia · Paternidade',
+    sinopse:'O que as mulheres gostariam que os homens soubessem — mas nem sempre sabem como explicar. Este guia preenche a lacuna, preparando o pai para ser presença de verdade: emocionalmente disponível, praticamente útil e amoroso em cada fase da gestação.',
+    trecho:'Ninguém prepara o pai. Os livros são para as mães. As consultas são para as mães. E o pai? O pai tenta entender o que está acontecendo olhando de fora. Este guia é para você, pai. Bem-vindo à conversa.',
+    link:'#contato'
+  },
+  {
+    id:'l08', capa:'capa-08.jpg',
+    titulo:'Memórias Póstumas', subtitulo:'de um corpo ainda com vida', volume:'',
+    tipo:'Literatura · Introspecção',
+    sinopse:'Um corpo que respira, mas que em algum momento se despediu de si mesmo. Nesta obra introspectiva, o autor explora o que significa carregar uma vida que já se sentiu morta por dentro — e como é possível, aos poucos, habitar novamente o próprio corpo com dignidade e esperança.',
+    trecho:'Existe uma versão de mim que morreu antes de mim. Não de doença, não de acidente — morreu de silêncio acumulado, de palavras engolidas, de sorrisos que custavam mais do que tinham. Este livro é o velório e a ressurreição ao mesmo tempo.',
+    link:'#contato'
+  },
+  {
+    id:'l09', capa:'capa-09.jpg',
+    titulo:'Emergindo da Escuridão', subtitulo:'Uma jornada silenciosa de cura, coragem e renascimento', volume:'',
+    tipo:'Literatura · Cura',
+    sinopse:'Do fundo do abismo, uma luz. Pequena no início — quase imperceptível. Mas persistente. Esta obra é um testemunho de cura: não a cura rápida e fácil dos clichês, mas a silenciosa, corajosa e real jornada de quem decidiu que o escuro não seria a última palavra.',
+    trecho:'A cura não chegou de uma vez. Chegou como a aurora — primeiro uma linha tênue no horizonte, depois outra, depois cores que você não lembrava que existiam. Um dia você percebe que está vendo de novo. Esse dia sempre chega.',
+    link:'#contato'
+  }
+];
+
+/* =====================================================
+   SERVIÇOS EDITORIAIS
+   Troque "preco" e "link" pelos valores e links reais
+   ===================================================== */
+const servicos = [
+  {
+    id:'s01', icone:'📐', titulo:'Diagramação profissional',
+    resumo:'Miolo no formato 14×21 cm com tipografia, margens e espaçamentos editoriais.',
+    descricao:'O miolo do livro é diagramado no formato editorial padrão brasileiro (14×21 cm), com escolha tipográfica adequada ao gênero, margens calculadas para impressão, espaçamento otimizado para conforto de leitura e todos os elementos pré-textuais (folha de rosto, dedicatória, sumário, epígrafe).',
+    inclui:['Formatação completa do miolo','Escolha tipográfica para o gênero','Margens e espaçamentos editoriais','Numeração de páginas','Sumário automático','Folha de rosto, dedicatória e epígrafes','Até 2 rodadas de revisão do layout'],
+    preco:'Consulte', prazo:'7 a 15 dias úteis', link:'#contato'
+  },
+  {
+    id:'s02', icone:'🖨️', titulo:'PDF pronto para gráfica',
+    resumo:'Arquivo com sangria de 3mm, fontes embutidas e cores CMYK — padrão das gráficas brasileiras.',
+    descricao:'Exportação do arquivo final em PDF/X com todas as configurações exigidas pelas gráficas brasileiras: sangria de 3mm em todas as bordas, fontes totalmente embutidas, perfil de cores CMYK, resolução mínima de 300 dpi para imagens. Entregamos um arquivo verificado e aprovado para impressão.',
+    inclui:['Sangria de 3mm em todas as bordas','Fontes totalmente embutidas','Perfil de cores CMYK','Resolução adequada para impressão offset','Verificação de compatibilidade com gráficas','Arquivo revisado e aprovado'],
+    preco:'Incluído na diagramação', prazo:'2 dias após aprovação do miolo', link:'#contato'
+  },
+  {
+    id:'s03', icone:'✍️', titulo:'Revisão de texto',
+    resumo:'Revisão ortográfica e gramatical respeitando o estilo e a voz do autor.',
+    descricao:'Revisão completa do texto com foco em ortografia, gramática, pontuação e coerência. O trabalho respeita integralmente o estilo e a voz do autor — não reescrevemos, apenas corrigimos. Entregamos o arquivo com marcas de revisão para sua aprovação antes de qualquer alteração ser aplicada.',
+    inclui:['Revisão ortográfica completa','Revisão gramatical e de pontuação','Verificação de consistência','Adequação à norma culta quando necessário','Respeito ao estilo do autor','Arquivo com marcas de revisão para aprovação'],
+    preco:'Consulte (por página)', prazo:'5 a 20 dias úteis', link:'#contato'
+  },
+  {
+    id:'s04', icone:'🎨', titulo:'Projeto de capa',
+    resumo:'Capa com identidade visual alinhada à obra, incluindo lombada e quarta capa.',
+    descricao:'Criação da identidade visual da capa com base no conteúdo e público da obra. O projeto inclui capa frontal, lombada calculada conforme número de páginas e tipo de papel, e quarta capa com texto de apresentação. Arte final em alta resolução pronta para impressão e para versão digital.',
+    inclui:['Capa frontal com identidade visual exclusiva','Lombada calculada conforme especificações','Quarta capa com texto de apresentação','Arte final em alta resolução','Arquivo para impressão e versão digital','Até 2 rodadas de ajustes'],
+    preco:'Consulte', prazo:'7 a 10 dias úteis', link:'#contato'
+  },
+  {
+    id:'s05', icone:'📚', titulo:'Consultoria de publicação',
+    resumo:'Orientação sobre ISBN, ficha catalográfica, depósito legal e publicação independente.',
+    descricao:'Sessão de consultoria para autores nos primeiros passos da publicação independente. Abordamos ISBN gratuito, ficha catalográfica, depósito legal, escolha de gráfica, tiragem recomendada, precificação, canais de venda e distribuição. Tudo para você publicar com segurança e profissionalismo.',
+    inclui:['ISBN gratuito pela Câmara Brasileira do Livro','Ficha catalográfica: como obter','Depósito legal na Biblioteca Nacional','Como escolher e negociar com gráficas','Tiragem recomendada por tipo de obra','Canais de venda: livrarias, eventos e digital'],
+    preco:'Consulte', prazo:'1 encontro por videochamada', link:'#contato'
+  },
+  {
+    id:'s06', icone:'🌐', titulo:'E-book e distribuição digital',
+    resumo:'Conversão da obra para formatos digitais e apoio para chegar às principais plataformas.',
+    descricao:'Convertemos o manuscrito ou miolo diagramado para os formatos digitais padrão (EPUB e PDF digital), com capa adaptada para telas. Em seguida, orientamos o cadastro nas principais plataformas de venda do Brasil e do mundo — da Amazon à Hotmart.',
+    inclui:['Conversão para EPUB (padrão Kindle/Kobo)','Conversão para PDF digital','Capa adaptada para telas (RGB)','Orientação de cadastro na Amazon KDP','Orientação de cadastro no Google Books','Orientação para Hotmart e outras plataformas'],
+    preco:'Consulte', prazo:'5 a 10 dias úteis', link:'#contato'
+  }
+];
+
+/* =====================================================
+   RENDERIZAÇÃO
+   ===================================================== */
+function renderLivros() {
+  const g = document.getElementById('gradeLivros');
+  livros.forEach(l => {
+    const card = document.createElement('article');
+    card.className = 'livro-card';
+    card.tabIndex = 0;
+    const sub = l.volume || (l.subtitulo ? l.subtitulo.slice(0,55)+(l.subtitulo.length>55?'…':'') : '');
+    card.innerHTML = `
+      <img src="${l.capa}" alt="${l.titulo}" loading="lazy">
+      <div class="card-info">
+        <div class="card-tipo">${l.tipo}</div>
+        <div class="card-titulo">${l.titulo}</div>
+        ${sub ? `<div class="card-sub">${sub}</div>` : ''}
+      </div>`;
+    card.addEventListener('click', () => abrirLivro(l.id));
+    card.addEventListener('keydown', e => { if(e.key==='Enter') abrirLivro(l.id); });
+    g.appendChild(card);
+  });
+}
+
+function renderDetalheLivros() {
+  const c = document.getElementById('paginasDetalhe');
+  livros.forEach(l => {
+    const d = document.createElement('div');
+    d.id = `pag-${l.id}`;
+    d.className = 'pagina-detalhe';
+    d.innerHTML = `
+      <div class="detalhe-inner">
+        <button class="btn-voltar" onclick="voltarLibraria()">← Voltar para a Livraria</button>
+        <div class="detalhe-livro">
+          <img src="${l.capa}" alt="${l.titulo}" class="capa-grande">
+          <div class="detalhe-info">
+            <div class="livro-tipo">${l.tipo}</div>
+            <h1>${l.titulo}</h1>
+            ${l.subtitulo ? `<p class="subtitulo-livro">${l.subtitulo}</p>` : ''}
+            ${l.volume ? `<span class="vol-badge">${l.volume}</span>` : ''}
+            <p class="label-sec">Sinopse</p>
+            <p class="sinopse-txt">${l.sinopse}</p>
+            <p class="label-sec">Trecho</p>
+            <div class="trecho-bloco"><p>${l.trecho}</p></div>
+            <a href="${l.link}" class="btn-acao btn-comprar"
+               ${l.link!=='#contato'?'target="_blank" rel="noopener"':''}>
+              Clique aqui para continuar lendo →
+            </a>
+          </div>
+        </div>
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+function renderServicos() {
+  const g = document.getElementById('gradeServicos');
+  servicos.forEach(s => {
+    const card = document.createElement('article');
+    card.className = 'servico-card';
+    card.tabIndex = 0;
+    card.innerHTML = `
+      <div class="servico-icone">${s.icone}</div>
+      <h3>${s.titulo}</h3>
+      <p>${s.resumo}</p>
+      <span class="ver-mais">Ver detalhes →</span>`;
+    card.addEventListener('click', () => abrirServico(s.id));
+    card.addEventListener('keydown', e => { if(e.key==='Enter') abrirServico(s.id); });
+    g.appendChild(card);
+  });
+}
+
+function renderDetalheServicos() {
+  const c = document.getElementById('paginasDetalhe');
+  servicos.forEach(s => {
+    const itens = s.inclui.map(i=>`<li>${i}</li>`).join('');
+    const d = document.createElement('div');
+    d.id = `pag-${s.id}`;
+    d.className = 'pagina-detalhe';
+    d.innerHTML = `
+      <div class="detalhe-inner">
+        <button class="btn-voltar" onclick="voltarServicos()">← Voltar para Serviços</button>
+        <div class="detalhe-servico">
+          <div class="servico-header-d">
+            <div class="icone-grande">${s.icone}</div>
+            <h1>${s.titulo}</h1>
+          </div>
+          <p class="desc-completa">${s.descricao}</p>
+          <p class="label-sec">O que está incluído</p>
+          <ul class="inclui-lista">${itens}</ul>
+          <div class="preco-bloco">
+            <p class="preco-label">Investimento</p>
+            <p class="preco-valor">${s.preco}</p>
+            <p class="preco-prazo">Prazo estimado: ${s.prazo}</p>
+          </div>
+          <a href="${s.link}" class="btn-acao btn-contratar"
+             ${s.link!=='#contato'?'target="_blank" rel="noopener"':''}>
+            Clique aqui para contratar →
+          </a>
+        </div>
+      </div>`;
+    c.appendChild(d);
+  });
+}
+
+/* =====================================================
+   NAVEGAÇÃO ENTRE PÁGINAS
+   ===================================================== */
+function abrirLivro(id) {
+  document.getElementById('mainContent').style.display = 'none';
+  document.querySelectorAll('.pagina-detalhe').forEach(p => p.style.display='none');
+  document.getElementById(`pag-${id}`).style.display = 'block';
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function abrirServico(id) {
+  document.getElementById('mainContent').style.display = 'none';
+  document.querySelectorAll('.pagina-detalhe').forEach(p => p.style.display='none');
+  document.getElementById(`pag-${id}`).style.display = 'block';
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function voltarParaPrincipal() {
+  document.querySelectorAll('.pagina-detalhe').forEach(p => p.style.display='none');
+  document.getElementById('mainContent').style.display = 'block';
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function voltarLibraria() {
+  document.querySelectorAll('.pagina-detalhe').forEach(p => p.style.display='none');
+  document.getElementById('mainContent').style.display = 'block';
+  setTimeout(() => document.getElementById('livraria').scrollIntoView({behavior:'smooth'}), 50);
+}
+function voltarServicos() {
+  document.querySelectorAll('.pagina-detalhe').forEach(p => p.style.display='none');
+  document.getElementById('mainContent').style.display = 'block';
+  setTimeout(() => document.getElementById('servicos').scrollIntoView({behavior:'smooth'}), 50);
+}
+function navegar(ancora) {
+  voltarParaPrincipal();
+  if(ancora) setTimeout(() => {
+    const el = document.querySelector(ancora);
+    if(el) el.scrollIntoView({behavior:'smooth'});
+  }, 50);
+}
+
+/* =====================================================
+   MENU HAMBURGER
+   ===================================================== */
+const menuMob = document.getElementById('menuMob');
+document.getElementById('hamb').addEventListener('click', () => menuMob.classList.toggle('aberto'));
+document.getElementById('btnFechar').addEventListener('click', fecharMenu);
+function fecharMenu() { menuMob.classList.remove('aberto'); }
+
+/* =====================================================
+   SCROLL REVEAL + INICIALIZAÇÃO
+   ===================================================== */
+document.getElementById('ano').textContent = new Date().getFullYear();
+renderLivros(); renderDetalheLivros();
+renderServicos(); renderDetalheServicos();
+const obs = new IntersectionObserver(entries =>
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('vis'); }),
+  {threshold:.12}
+);
+document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
